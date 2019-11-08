@@ -1,1 +1,10 @@
-<p>frog works!</p>
+<table id='elements'>
+    <tr>
+        <td 
+            *ngFor='let box of boxesElements' 
+            (click)="jumpFrogAdv(box)"
+            [ngClass]="getBoxClass(box)">
+            {{getIndex(box)}}
+        </td>
+    </tr>
+</table>
