@@ -11,7 +11,7 @@ export class FrogComponent implements OnInit {
   @Input() selected: number;
   @Input() config: boolean;
 
-  @ViewChild('pfrog', {static: true}) pfrog: ElementRef;
+  @ViewChild('pfrog', {static: false}) pfrog: ElementRef;
 
   readonly DEFAULT_BOXES = 5;
   readonly DEFAULT_SELECTED = 1;
