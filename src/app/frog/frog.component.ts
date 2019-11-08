@@ -12,6 +12,7 @@ export class FrogComponent implements OnInit {
   @Input() config: boolean;
 
   @ViewChild('pfrog', {static: false}) pfrog: ElementRef;
+  @ViewChild('nboxes', {static: false}) nboxes: ElementRef;
 
   readonly DEFAULT_BOXES = 5;
   readonly DEFAULT_SELECTED = 1;
@@ -82,6 +83,55 @@ export class FrogComponent implements OnInit {
       this.boxesElements[newBoxSelection.index-1].selected = true;
 
       this.selectedComponent = newBoxSelection.index;
+    }
+  }
+
+  changeInputBoxes () {
+    const newNumberBoxes = this.nboxes.nativeElement.value;
+    const oldNumberBoxes = this.boxesComponent;
+    this.changeBoxes(newNumberBoxes, oldNumberBoxes);
+  }
+
+  changeBoxes (newNumberBoxes, oldNumberBoxes=this.DEFAULT_SELECTED) {
+    this.changeBoxesByObjects(newNumberBoxes, oldNumberBoxes);
+  }
+
+  changeBoxesByObjects (newNumberBoxes, oldNumberBoxes) {
+    if (newNumberBoxes > 0) {
+      if (newNumberBoxes > oldNumberBoxes) {
+        this.boxesComponent = newNumberBoxes;
+        this.addBoxesByObjects();
+      } else if (newNumberBoxes < oldNumberBoxes) {
+        this.boxesComponent = newNumberBoxes;
+        this.removeBoxesByObjects();
+      }
+    }
+  }
+
+  addBoxesByObjects () {
+    const numberCreatedBoxes = this.boxesElements.length;
+    const numberNewBoxes = this.boxesComponent - numberCreatedBoxes;
+
+    for (let i = 0; i < numberNewBoxes; i++) {
+      const newBox = this.getBoxObject(numberCreatedBoxes + 1, false);
+
+      this.boxesElements.push(newBox);
+    }
+  }
+
+  removeBoxesByObjects () {
+    let positionFrog = this.getPositionFrogAdvanced();
+    const numberCreatedBoxes = this.boxesElements.length;
+    const numberBoxes = this.boxesComponent;
+
+    if (positionFrog >= numberBoxes) {
+      positionFrog = numberBoxes;
+      this.selectedComponent = positionFrog;
+      this.boxesElements[positionFrog-1].selected = true;
+    }
+
+    for (let i = numberCreatedBoxes-1; i >= numberBoxes; i--) {
+      this.boxesElements.pop();
     }
   }
 

@@ -5,8 +5,8 @@
             <label for="nboxes">Número de cajas: &nbsp;</label>
         </div>
         <div class='cell'>
-                <!-- (change)="changeInputBoxes()" -->
-            <input type="number" id="nboxes" min="1" 
+            <input type="number" #nboxes min="1" 
+                (change)="changeInputBoxes()"
                 value={{boxesComponent}}>
         </div>
     </div>
