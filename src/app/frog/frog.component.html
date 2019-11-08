@@ -1,3 +1,26 @@
+<h2>Hi frog - {{boxesComponent}}!</h2>
+<div *ngIf="configComponent" class='table'>
+    <div class='row'>
+        <div class='cell'>
+            <label for="nboxes">Número de cajas: &nbsp;</label>
+        </div>
+        <div class='cell'>
+                <!-- (change)="changeInputBoxes()" -->
+            <input type="number" id="nboxes" min="1" 
+                value={{boxesComponent}}>
+        </div>
+    </div>
+    <div class='row'>
+        <div class='cell'>
+            <label for="pfrog">Posición rana: </label>
+        </div>
+        <div class='cell'>
+            <input type="number" #pfrog min="1" 
+                (change)="changeInputSelection()"
+                value={{selectedComponent}}>
+        </div>
+    </div>
+</div>
 <table id='elements'>
     <tr>
         <td 

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-frog',
@@ -10,6 +10,8 @@ export class FrogComponent implements OnInit {
   @Input() boxes: number;
   @Input() selected: number;
   @Input() config: boolean;
+
+  @ViewChild('pfrog') pfrog: ElementRef;
 
   readonly DEFAULT_BOXES = 5;
   readonly DEFAULT_SELECTED = 1;
@@ -78,6 +80,41 @@ export class FrogComponent implements OnInit {
 
       this.boxesElements[boxSelected.index-1].selected = false;
       this.boxesElements[newBoxSelection.index-1].selected = true;
+
+      this.selectedComponent = newBoxSelection.index;
+    }
+  }
+
+  changeInputSelection () {
+    const newPosition = this.pfrog.nativeElement.value;
+    const oldPosition = this.getPositionFrogAdvanced();
+    this.changeSelected(newPosition, oldPosition);
+  }
+
+  getPositionFrogAdvanced () {
+    return this.boxesElements.filter(box => box.selected)[0].index;
+  }
+
+  changeSelected (newPosition, oldPosition=this.DEFAULT_BOXES) {
+    this.changeSelectedByObjects(newPosition, oldPosition);
+  }
+
+  changeSelectedByObjects (newPosition, oldPosition) {
+    if (this.boxesElements && this.boxesElements.length && oldPosition > -1){
+      // const positionFrog = this.getPositionFrogAdvanced();
+      const positionFrog = oldPosition;
+
+      const newPositionSelection = newPosition <= this.boxesElements.length ?
+        newPosition : 1;
+
+      // this.selected = newPositionSelection;
+      this.selectedComponent = newPositionSelection;
+
+      this.boxesElements[positionFrog-1].selected = false;
+      this.boxesElements[newPositionSelection-1].selected = true;
+
+      // this.boxesElements = [...this.boxesElements];
+      // this.boxesElements = JSON.parse(JSON.stringify(this.boxesElements));
     }
   }
 
