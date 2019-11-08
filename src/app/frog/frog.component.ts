@@ -19,11 +19,11 @@ export class FrogComponent implements OnInit {
   readonly DEFAULT_CONFIG = false;
   readonly CSS_STYLE_FROG = 'frog';
 
-  private boxesComponent: number;
-  private selectedComponent: number;
-  private configComponent: boolean;
+  boxesComponent: number;
+  selectedComponent: number;
+  configComponent: boolean;
 
-  private boxesElements;
+  boxesElements;
 
   constructor() {
     // console.log('constructor - boxes : ', this.boxes);
